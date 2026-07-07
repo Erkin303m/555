@@ -107,7 +107,6 @@ export default async function Home() {
         </div>
       </section>
 
-      {/* FEATURED PRODUCTS */}
       <section className="max-w-6xl mx-auto px-6 py-20">
         <div className="flex items-end justify-between mb-10">
           <div>

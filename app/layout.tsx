@@ -40,7 +40,7 @@ export default function RootLayout({
                   />
                 </div>
                 <span className="font-semibold tracking-tight text-lg">
-                  iShop
+                  555
                 </span>
               </div>
               <p className="text-sm text-gray-500 leading-relaxed max-w-xs">
@@ -55,7 +55,7 @@ export default function RootLayout({
               </h4>
               <ul className="space-y-2 text-sm text-gray-500">
                 <li className="flex items-center gap-2">
-                  <Phone className="w-4 h-4" /> +998 90 123 45 67
+                  <Phone className="w-4 h-4" /> +998 90 242 07 57
                 </li>
                 <li className="flex items-center gap-2">
                   <Send className="w-4 h-4" /> @555_support
@@ -69,14 +69,21 @@ export default function RootLayout({
               </h4>
               <div className="flex gap-3">
                 <a
-                  href="#"
+                  href="https://www.instagram.com/555_aksesuar_n1?igsh=MXAxb2lhb2dvaTFtMw=="
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="w-9 h-9 rounded-full bg-gray-100 flex items-center justify-center hover:bg-black hover:text-white transition-colors duration-300"
+                  aria-label="Instagram"
                 >
                   <Camera className="w-4 h-4" />
                 </a>
+
                 <a
-                  href="#"
+                  href="https://t.me/iPhone_by_555"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="w-9 h-9 rounded-full bg-gray-100 flex items-center justify-center hover:bg-black hover:text-white transition-colors duration-300"
+                  aria-label="Telegram"
                 >
                   <Send className="w-4 h-4" />
                 </a>

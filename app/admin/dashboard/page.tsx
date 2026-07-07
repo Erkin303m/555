@@ -29,6 +29,7 @@ export default function Dashboard() {
   const [loading, setLoading] = useState(true);
   const [query, setQuery] = useState("");
   const [deletingId, setDeletingId] = useState<number | null>(null);
+  const [loggingOut, setLoggingOut] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
@@ -49,6 +50,7 @@ export default function Dashboard() {
   }
 
   async function handleLogout() {
+    setLoggingOut(true);
     await fetch("/api/auth/logout", { method: "POST" });
     router.push("/");
     router.refresh();
@@ -92,9 +94,14 @@ export default function Dashboard() {
             </Link>
             <button
               onClick={handleLogout}
-              className="px-3 sm:px-4 py-2.5 rounded-xl text-sm font-medium border border-gray-200 hover:bg-gray-100 active:scale-[0.97] transition-all duration-200 flex items-center gap-1.5 text-gray-600"
+              disabled={loggingOut}
+              className="px-3 sm:px-4 py-2.5 rounded-xl text-sm font-medium border border-gray-200 hover:bg-gray-100 active:scale-[0.97] transition-all duration-200 flex items-center gap-1.5 text-gray-600 disabled:opacity-50"
             >
-              <LogOut className="w-4 h-4" />
+              {loggingOut ? (
+                <Loader2 className="w-4 h-4 animate-spin" />
+              ) : (
+                <LogOut className="w-4 h-4" />
+              )}
               <span className="hidden sm:inline">Chiqish</span>
             </button>
           </div>

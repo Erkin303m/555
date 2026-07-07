@@ -81,7 +81,7 @@ export default async function ProductDetail({
           )}
 
           <a
-            href="tel:+998901234567"
+            href="tel:+998902420757"
             className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-black text-white px-6 py-3.5 rounded-2xl font-medium hover:bg-gray-800 active:scale-[0.98] transition-all duration-200 mb-8"
           >
             <Phone className="w-4 h-4" />

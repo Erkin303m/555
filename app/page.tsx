@@ -41,7 +41,7 @@ const perks = [
   },
 ];
 
-export const dynamic = 'force-dynamic'
+export const dynamic = "force-dynamic";
 
 export default async function Home() {
   const products = await prisma.product.findMany({
@@ -76,7 +76,7 @@ export default async function Home() {
 
           <div className="flex flex-wrap gap-3 animate-[fadeInUp_0.6s_ease_0.3s_backwards]">
             <a
-              href="tel:+998901234567"
+              href="tel:+998902420757"
               className="group bg-white text-black px-6 py-3.5 rounded-2xl font-medium hover:bg-gray-200 transition-all duration-300 flex items-center gap-2"
             >
               Xarid qilish

@@ -34,7 +34,7 @@ const specLabels: Record<string, { label: string; placeholder: string }> = {
   ram: { label: "Operativ xotira (RAM)", placeholder: "masalan: 8GB" },
   storage: { label: "Xotira hajmi", placeholder: "masalan: 256GB" },
   processor: { label: "Protsessor", placeholder: "masalan: A17 Pro" },
-  battery: { label: "Batareya holati", placeholder: "masalan: 78%" },
+  battery: { label: "Batareya holati", placeholder: "masalan: 78" },
 };
 
 interface Specs {
@@ -43,6 +43,13 @@ interface Specs {
   processor?: string;
   battery?: string;
 }
+
+const defaultSpecs: Specs = {
+  ram: "",
+  storage: "",
+  processor: "",
+  battery: "",
+};
 
 interface Props {
   product?: {
@@ -65,16 +72,14 @@ export default function ProductForm({ product, onSave, saving }: Props) {
   const [price, setPrice] = useState(product?.price?.toString() || "");
   const [description, setDescription] = useState(product?.description || "");
   const [inStock, setInStock] = useState(product?.inStock ?? true);
-  const [specs, setSpecs] = useState<Specs>(
-    product?.specs || {
-      ram: "",
-      storage: "",
-      processor: "",
-      battery: "",
-    },
-  );
+  const [specs, setSpecs] = useState<Specs>({
+    ...defaultSpecs,
+    ...(product?.specs || {}),
+  });
   const [images, setImages] = useState<string[]>(product?.images || []);
   const [uploading, setUploading] = useState(false);
+
+  const isPhone = category === "Phone";
 
   async function handleImageUpload(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0];
@@ -98,7 +103,15 @@ export default function ProductForm({ product, onSave, saving }: Props) {
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    onSave({ name, category, price, description, inStock, specs, images });
+    onSave({
+      name,
+      category,
+      price,
+      description,
+      inStock,
+      specs: isPhone ? specs : {},
+      images,
+    });
   }
 
   return (
@@ -127,23 +140,32 @@ export default function ProductForm({ product, onSave, saving }: Props) {
             />
           </div>
 
-          <div>
-            <label className="text-sm font-medium text-gray-700 mb-1.5 flex items-center gap-1.5">
+          {/* Category selector — chiroyli pill buttons */}
+          <div className="sm:col-span-2">
+            <label className="text-sm font-medium text-gray-700 mb-2 flex items-center gap-1.5">
               <Tag className="w-3.5 h-3.5 text-gray-400" />
               Kategoriya
             </label>
-            <div className="relative">
-              <select
-                value={category}
-                onChange={(e) => setCategory(e.target.value)}
-                className="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-black/10 focus:border-gray-400 outline-none transition-all duration-200 bg-white text-sm appearance-none cursor-pointer"
-              >
-                {categories.map((c) => (
-                  <option key={c.value} value={c.value}>
+            <div className="grid grid-cols-3 sm:grid-cols-6 gap-2">
+              {categories.map((c) => {
+                const Icon = c.icon;
+                const active = category === c.value;
+                return (
+                  <button
+                    key={c.value}
+                    type="button"
+                    onClick={() => setCategory(c.value)}
+                    className={`flex flex-col items-center gap-1.5 py-3 px-2 rounded-xl border text-xs font-medium transition-all duration-200 ${
+                      active
+                        ? "bg-black border-black text-white shadow-sm"
+                        : "border-gray-200 text-gray-500 hover:border-gray-300 hover:bg-gray-50"
+                    }`}
+                  >
+                    <Icon className="w-4 h-4" strokeWidth={1.8} />
                     {c.label}
-                  </option>
-                ))}
-              </select>
+                  </button>
+                );
+              })}
             </div>
           </div>
 
@@ -163,7 +185,7 @@ export default function ProductForm({ product, onSave, saving }: Props) {
             />
           </div>
 
-          <div className="sm:col-span-2">
+          <div>
             <label className="text-sm font-medium text-gray-700 mb-2 flex items-center gap-1.5">
               <PackageCheck className="w-3.5 h-3.5 text-gray-400" />
               Ombordagi holati
@@ -211,46 +233,51 @@ export default function ProductForm({ product, onSave, saving }: Props) {
         />
       </div>
 
-      {/* Xususiyatlar */}
-      <div>
-        <div className="flex items-center gap-2 mb-4">
-          <Cpu className="w-4 h-4 text-gray-400" />
-          <h3 className="text-sm font-semibold text-gray-900">
-            Texnik xususiyatlar
-          </h3>
-        </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          {Object.entries(specs).map(([key, val]) => {
-            const meta = specLabels[key] || { label: key, placeholder: "" };
-            const isBattery = key === "battery";
-            return (
-              <div key={key}>
-                <label className="block text-xs font-medium text-gray-500 mb-1.5">
-                  {meta.label}
-                </label>
-                <div className="relative">
-                  <input
-                    type={isBattery ? "number" : "text"}
-                    min={isBattery ? 0 : undefined}
-                    max={isBattery ? 100 : undefined}
-                    value={val as string}
-                    onChange={(e) =>
-                      setSpecs((prev) => ({ ...prev, [key]: e.target.value }))
-                    }
-                    placeholder={meta.placeholder}
-                    className="w-full px-3.5 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-black/10 focus:border-gray-400 outline-none transition-all duration-200 text-sm"
-                  />
-                  {isBattery && (
-                    <span className="absolute right-3.5 top-1/2 -translate-y-1/2 text-gray-400 text-sm">
-                      %
-                    </span>
-                  )}
+      {/* Xususiyatlar — faqat iPhone tanlanganda ko'rinadi */}
+      {isPhone && (
+        <div className="animate-[fadeInUp_0.35s_ease] bg-gray-50/70 border border-gray-100 rounded-2xl p-5">
+          <div className="flex items-center gap-2 mb-4">
+            <Cpu className="w-4 h-4 text-gray-400" />
+            <h3 className="text-sm font-semibold text-gray-900">
+              Texnik xususiyatlar
+            </h3>
+            <span className="text-[11px] text-gray-400 font-normal ml-auto">
+              Faqat iPhone uchun
+            </span>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            {Object.entries(specs).map(([key, val]) => {
+              const meta = specLabels[key] || { label: key, placeholder: "" };
+              const isBattery = key === "battery";
+              return (
+                <div key={key}>
+                  <label className="block text-xs font-medium text-gray-500 mb-1.5">
+                    {meta.label}
+                  </label>
+                  <div className="relative">
+                    <input
+                      type={isBattery ? "number" : "text"}
+                      min={isBattery ? 0 : undefined}
+                      max={isBattery ? 100 : undefined}
+                      value={val as string}
+                      onChange={(e) =>
+                        setSpecs((prev) => ({ ...prev, [key]: e.target.value }))
+                      }
+                      placeholder={meta.placeholder}
+                      className="w-full px-3.5 py-2.5 bg-white border border-gray-200 rounded-xl focus:ring-2 focus:ring-black/10 focus:border-gray-400 outline-none transition-all duration-200 text-sm"
+                    />
+                    {isBattery && (
+                      <span className="absolute right-3.5 top-1/2 -translate-y-1/2 text-gray-400 text-sm pointer-events-none">
+                        %
+                      </span>
+                    )}
+                  </div>
                 </div>
-              </div>
-            );
-          })}
+              );
+            })}
+          </div>
         </div>
-      </div>
+      )}
 
       {/* Rasmlar */}
       <div>
@@ -274,7 +301,7 @@ export default function ProductForm({ product, onSave, saving }: Props) {
                 <button
                   type="button"
                   onClick={() => removeImage(url)}
-                  className="absolute -top-2 -right-2 bg-black text-white w-5.5 h-5.5 w-6 h-6 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200 shadow-md hover:bg-red-600"
+                  className="absolute -top-2 -right-2 bg-black text-white w-6 h-6 rounded-full flex items-center justify-center shadow-md hover:bg-red-600 transition-colors duration-200 sm:opacity-0 sm:group-hover:opacity-100"
                 >
                   <X className="w-3.5 h-3.5" />
                 </button>

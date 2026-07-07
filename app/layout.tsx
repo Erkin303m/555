@@ -57,9 +57,6 @@ export default function RootLayout({
                 <li className="flex items-center gap-2">
                   <Phone className="w-4 h-4" /> +998 90 242 07 57
                 </li>
-                <li className="flex items-center gap-2">
-                  <Send className="w-4 h-4" /> @555_support
-                </li>
               </ul>
             </div>
 

@@ -10,7 +10,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "iShop | Premium iPhone va Aksessuarlar",
+  title: "555 | Premium iPhone va Aksessuarlar",
   description:
     "iPhone va original aksessuarlarni O'zbekistonda eng qulay narxlarda xarid qiling",
 };
@@ -58,7 +58,7 @@ export default function RootLayout({
                   <Phone className="w-4 h-4" /> +998 90 123 45 67
                 </li>
                 <li className="flex items-center gap-2">
-                  <Send className="w-4 h-4" /> @ishop_support
+                  <Send className="w-4 h-4" /> @555_support
                 </li>
               </ul>
             </div>
@@ -85,8 +85,7 @@ export default function RootLayout({
           </div>
 
           <div className="border-t border-gray-100 py-6 text-center text-xs text-gray-400">
-            &copy; {new Date().getFullYear()} iShop. Barcha huquqlar
-            himoyalangan.
+            &copy; {new Date().getFullYear()} 555. Barcha huquqlar himoyalangan.
           </div>
         </footer>
       </body>

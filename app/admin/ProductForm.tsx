@@ -81,20 +81,18 @@ export default function ProductForm({ product, onSave, saving }: Props) {
 
   const isPhone = category === "Phone";
 
-  async function handleImageUpload(e: React.ChangeEvent<HTMLInputElement>) {
+  function handleImageSelect(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0];
     if (!file) return;
 
     setUploading(true);
-    const formData = new FormData();
-    formData.append("file", file);
-    const res = await fetch("/api/upload", { method: "POST", body: formData });
-    const data = await res.json();
-    setUploading(false);
-
-    if (data.url) {
-      setImages((prev) => [...prev, data.url]);
-    }
+    const reader = new FileReader();
+    reader.onload = () => {
+      setImages((prev) => [...prev, reader.result as string]);
+      setUploading(false);
+    };
+    reader.readAsDataURL(file);
+    e.target.value = "";
   }
 
   function removeImage(url: string) {
@@ -320,7 +318,7 @@ export default function ProductForm({ product, onSave, saving }: Props) {
           <input
             type="file"
             accept="image/*"
-            onChange={handleImageUpload}
+            onChange={handleImageSelect}
             className="hidden"
             disabled={uploading}
           />
@@ -332,7 +330,7 @@ export default function ProductForm({ product, onSave, saving }: Props) {
           ) : (
             <>
               <ImagePlus className="w-4 h-4" />
-              Rasm yuklash
+              Rasm tanlash
             </>
           )}
         </label>

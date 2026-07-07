@@ -41,6 +41,8 @@ const perks = [
   },
 ];
 
+export const dynamic = 'force-dynamic'
+
 export default async function Home() {
   const products = await prisma.product.findMany({
     where: { inStock: true },

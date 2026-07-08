@@ -1,6 +1,8 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
+import logo from "./logo.png";
 import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
 import {
@@ -44,10 +46,13 @@ export default function Navbar() {
     >
       <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
         <Link href="/" className="flex items-center gap-2 group">
-          <div className="w-8 h-8 rounded-xl bg-black flex items-center justify-center transition-transform duration-300 group-hover:rotate-6">
-            <Smartphone className="w-4 h-4 text-white" strokeWidth={2.2} />
-          </div>
-          <span className="text-lg font-semibold tracking-tight">555</span>
+          <Image
+            src={logo}
+            alt="Logo"
+            width={120}
+            height={120}
+            className="w-15 h-15"
+          />
         </Link>
 
         <div className="flex items-center gap-1">

@@ -1,8 +1,11 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import Navbar from "./Navbar";
-import { Smartphone, Camera, Send, Phone } from "lucide-react";
+import { Phone } from "lucide-react";
+import InstagramIcon from "./icons/instagram.svg";
+import TelegramIcon from "./icons/telegram.svg";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -10,7 +13,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "555 | Premium iPhone va Aksessuarlar",
+  title: "555",
   description:
     "iPhone va original aksessuarlarni O'zbekistonda eng qulay narxlarda xarid qiling",
 };
@@ -32,17 +35,9 @@ export default function RootLayout({
         <footer className="border-t border-gray-100 bg-white mt-24">
           <div className="max-w-6xl mx-auto px-6 py-14 grid gap-10 sm:grid-cols-3">
             <div>
-              <div className="flex items-center gap-2 mb-3">
-                <div className="w-8 h-8 rounded-xl bg-black flex items-center justify-center">
-                  <Smartphone
-                    className="w-4 h-4 text-white"
-                    strokeWidth={2.2}
-                  />
-                </div>
-                <span className="font-semibold tracking-tight text-lg">
-                  555
-                </span>
-              </div>
+              <h4 className="text-sm font-semibold mb-3 text-gray-900">
+                Do'konimizga tashrif buyuring
+              </h4>
               <p className="text-sm text-gray-500 leading-relaxed max-w-xs">
                 Original iPhone va aksessuarlar — ishonchli va tez yetkazib
                 berish bilan.
@@ -72,7 +67,14 @@ export default function RootLayout({
                   className="w-9 h-9 rounded-full bg-gray-100 flex items-center justify-center hover:bg-black hover:text-white transition-colors duration-300"
                   aria-label="Instagram"
                 >
-                  <Camera className="w-4 h-4" />
+                  <Image
+                    src={InstagramIcon}
+                    alt="Instagram"
+                    width={16}
+                    height={16}
+                    className="w-5 h-5 red"
+                    unoptimized
+                  />
                 </a>
 
                 <a
@@ -82,14 +84,21 @@ export default function RootLayout({
                   className="w-9 h-9 rounded-full bg-gray-100 flex items-center justify-center hover:bg-black hover:text-white transition-colors duration-300"
                   aria-label="Telegram"
                 >
-                  <Send className="w-4 h-4" />
+                  <Image
+                    src={TelegramIcon}
+                    alt="Telegram"
+                    width={16}
+                    height={16}
+                    className="w-5 h-5"
+                    unoptimized
+                  />
                 </a>
               </div>
             </div>
           </div>
 
           <div className="border-t border-gray-100 py-6 text-center text-xs text-gray-400">
-            &copy; {new Date().getFullYear()} 555. Barcha huquqlar himoyalangan.
+            &copy; {new Date().getFullYear()} Barcha huquqlar himoyalangan.
           </div>
         </footer>
       </body>

@@ -64,7 +64,7 @@ export default async function Home() {
           </div>
 
           <h1 className="text-4xl md:text-6xl font-bold tracking-tight mb-5 leading-[1.1] animate-[fadeInUp_0.6s_ease_0.1s_backwards]">
-            Premium iPhone va
+            555 - Premium iPhone va
             <br />
             <span className="text-gray-400">Aksessuarlar</span>
           </h1>

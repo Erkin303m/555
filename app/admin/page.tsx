@@ -10,6 +10,7 @@ import {
   AlertCircle,
   Eye,
   EyeOff,
+  ArrowLeft,
 } from "lucide-react";
 
 export default function AdminLogin() {
@@ -47,10 +48,6 @@ export default function AdminLogin() {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-50 via-white to-gray-100 px-4 relative overflow-hidden">
-      {/* Background decor */}
-      <div className="absolute -top-24 -left-24 w-72 h-72 bg-gray-200/40 rounded-full blur-3xl" />
-      <div className="absolute -bottom-24 -right-24 w-72 h-72 bg-gray-200/40 rounded-full blur-3xl" />
-
       <div className="relative bg-white p-8 sm:p-10 rounded-3xl shadow-xl shadow-gray-200/50 border border-gray-100 w-full max-w-sm animate-[fadeInUp_0.5s_ease]">
         {/* Icon header */}
         <div className="flex flex-col items-center mb-8">

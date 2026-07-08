@@ -14,6 +14,7 @@ import {
   Loader2,
   CheckCircle2,
   XCircle,
+  ArrowLeft,
 } from "lucide-react";
 
 interface Product {
@@ -67,7 +68,15 @@ export default function Dashboard() {
       {/* Header */}
       <header className="bg-white border-b border-gray-100 sticky top-0 z-10">
         <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between gap-4">
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2">
+            <button
+              onClick={() => router.back()}
+              className="w-9 h-9 rounded-full bg-gray-100 flex items-center justify-center text-gray-500 hover:bg-black hover:text-white transition-colors duration-200 shrink-0"
+              aria-label="Ortga"
+            >
+              <ArrowLeft className="w-4 h-4" />
+            </button>
+            <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-xl bg-black flex items-center justify-center shrink-0">
               <LayoutDashboard
                 className="w-5 h-5 text-white"
@@ -82,6 +91,7 @@ export default function Dashboard() {
                 {products.length} ta mahsulot
               </p>
             </div>
+          </div>
           </div>
 
           <div className="flex gap-2">

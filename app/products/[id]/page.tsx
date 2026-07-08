@@ -107,7 +107,7 @@ export default async function ProductDetail({
                         {specLabels[key] || key}
                       </span>
                       <span className="w-3/5 px-4 py-3 text-sm text-gray-900 font-medium">
-                        {key === "battery" ? `${value}%` : value}
+                        {key === "battery" ? `${value}%` : key === "ram" || key === "storage" ? `${value} GB` : value}
                       </span>
                     </div>
                   ) : null,
